@@ -6,6 +6,6 @@ read commitMessage
 
 git commit -m "$commitMessage"
 
-git push personal main
+git push origin main
 
 echo 'Thank you for updated your repository'
