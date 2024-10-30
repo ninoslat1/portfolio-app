@@ -1,5 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
+import Profile from "./profile";
+import About from "./about";
+import Projects from "./projects";
+import Home from "./home";
 
 const IMAGE_SIZE:number = 75
 
@@ -24,16 +28,16 @@ export default function Index() {
             <div className="w-full">
                 <TabGroup>
                     <TabList className={'flex gap-4 mx-auto justify-center'}>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Home</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Projects</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">About</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Profile</Tab>
+                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white light:text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Home</Tab>
+                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white light:text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Projects</Tab>
+                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white light:text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">About</Tab>
+                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white light:text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Profile</Tab>
                     </TabList>
                     <TabPanels className="mt-3">
-                        <TabPanel className="rounded-xl bg-white/5 p-3">Content 1</TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3">Content 2</TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3">Content 3</TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3">Content 4</TabPanel>
+                        <TabPanel className="rounded-xl bg-white/5 p-3"><Home/></TabPanel>
+                        <TabPanel className="rounded-xl bg-white/5 p-3"><Projects/></TabPanel>
+                        <TabPanel className="rounded-xl bg-white/5 p-3"><About/></TabPanel>
+                        <TabPanel className="rounded-xl bg-white/5 p-3"><Profile/></TabPanel>
                     </TabPanels>
                 </TabGroup>
             </div>
