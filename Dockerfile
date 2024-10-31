@@ -1,45 +1,22 @@
-# base node image
-FROM node:21-bullseye-slim as base
-
-# set for base and all layer that inherit from it
-ENV NODE_ENV production
-
-# Install all node_modules, including dev dependencies
+FROM node:20.2.0-alpine3.18 as base
 FROM base as deps
-
-WORKDIR /myapp
-
-ADD package.json ./
+WORKDIR /app
+COPY package*.json ./
 RUN npm install
-
-# Setup production node_modules
-FROM base as production-deps
-
-WORKDIR /myapp
-
-COPY --from=deps /myapp/node_modules /myapp/node_modules
-ADD package.json ./
-RUN npm prune --omit=dev
-
-# Build the app
-FROM base as build
-
-WORKDIR /myapp
-
-COPY --from=deps /myapp/node_modules /myapp/node_modules
-
-ADD . .
+FROM deps AS builder
+WORKDIR /app
+COPY . .
 RUN npm run build
-
-# Finally, build the production image with minimal footprint
-FROM base
-
-WORKDIR /myapp
-
-COPY --from=production-deps /myapp/node_modules /myapp/node_modules
-
-COPY --from=build /myapp/build /myapp/build
-COPY --from=build /myapp/public /myapp/public
-ADD . .
-
-CMD ["npm", "start"]
+FROM deps AS prod-deps
+WORKDIR /app
+RUN npm install --production
+FROM base as runner
+WORKDIR /app
+RUN addgroup --system --gid 1001 remix
+RUN adduser --system --uid 1001 remix
+USER remix
+COPY --from=prod-deps --chown=remix:remix /app/package*.json ./
+COPY --from=prod-deps --chown=remix:remix /app/node_modules ./node_modules
+COPY --from=builder --chown=remix:remix /app/build ./build
+COPY --from=builder --chown=remix:remix /app/public ./public
+ENTRYPOINT [ "node", "node_modules/.bin/remix-serve", "build/server/index.js"]

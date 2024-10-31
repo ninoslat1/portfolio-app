@@ -4,6 +4,9 @@ import Profile from "./profile";
 import About from "./about";
 import Projects from "./projects";
 import Home from "./home";
+import { useState } from "react";
+import { DEFAULT_STATE, ThemeContext } from "theme/ThemeContext";
+import { ThemeToggle } from "~/components/ThemeToggle";
 
 const IMAGE_SIZE:number = 75
 
@@ -15,12 +18,18 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const [dark, setDark] = useState(DEFAULT_STATE.dark);
+  const toggleTheme = () => {
+    setDark(!dark);
+  };
+  
   return (
-    <div className="">
+    <ThemeContext.Provider value={{ dark, toggleTheme}}>
       <div className="flex flex-col items-center gap-4">
         <div className="absolute right-5 top-5">
             <div className="flex items-center gap-2">
-                <p className="text-sm">Created with 💗 and</p>
+              <ThemeToggle/>
+                <p className="text-sm dark:text-white light:text-black">Created with 💗 and</p>
                 <img src={'/logo-dark.png'} width={IMAGE_SIZE} height={IMAGE_SIZE}/>
             </div>
         </div>
@@ -43,6 +52,6 @@ export default function Index() {
             </div>
         </div>
       </div>
-    </div>
+    </ThemeContext.Provider>
   );
 }
