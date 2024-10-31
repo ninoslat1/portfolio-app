@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  remix-porto-app-local:
+    container_name: remix-porto-app-local
+    image: remix-porto-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
