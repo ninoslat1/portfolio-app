@@ -1,4 +1,4 @@
 export type TThemeContext = {
-    dark: boolean
-    toggleTheme?: () => void;
+    currentTheme: 'light' | 'dark'
+    changeCurrentTheme?: (newTheme: 'light' | 'dark') => void;
   }

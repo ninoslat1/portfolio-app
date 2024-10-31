@@ -1,17 +1,20 @@
-import { useContext } from "react";
-import { ThemeContext } from "theme/ThemeContext";
-import { MouseEvent } from "react";
+import type { FC } from 'react'
+import { useContext } from 'react'
+import ThemeContext from 'theme/ThemeContext'
 
-export const ThemeToggle = () => {
-    const { dark, toggleTheme } = useContext(ThemeContext);
-    const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      typeof toggleTheme !== "undefined" ? toggleTheme() : null;
-    };
-    return (
-      <>
-        <h1>{dark ? "🌙" : "🌞"}</h1>
-        <button onClick={handleOnClick}>Toggle Dark Mode</button>
-      </>
-    );
-  };
+const ThemeSwitch: FC = () => {
+  const { currentTheme, changeCurrentTheme } = useContext(ThemeContext)
+
+  return (
+    <div className='px-2.5'>
+      <button
+        className={`p-2.5 rounded-lg ${currentTheme === 'light' ? 'bg-black' : 'bg-white'}`}
+        onClick={() => changeCurrentTheme(currentTheme === 'light' ? 'dark' : 'light')}
+      >
+        {currentTheme === 'light' ? '🌙': '🌞'}
+      </button>
+    </div>
+  )
+}
+
+export default ThemeSwitch

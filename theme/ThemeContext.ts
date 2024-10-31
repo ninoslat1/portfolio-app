@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react';
-import { Switch } from '@headlessui/react';
-import { TThemeContext } from 'lib/types';
+import { createContext } from 'react'
 
-export const DEFAULT_STATE = {
-    dark: true
+const defaultValue = {
+  currentTheme: 'light',
+  changeCurrentTheme: (newTheme: 'light' | 'dark') => {},
 }
 
-export const ThemeContext = createContext<TThemeContext>(DEFAULT_STATE);
+const ThemeContext = createContext(defaultValue)
+
+export default ThemeContext
