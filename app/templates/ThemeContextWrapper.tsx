@@ -1,25 +1,35 @@
-import { FC, useState, useEffect, ReactNode } from 'react'
-import ThemeContext from 'theme/ThemeContext'
+import { FC, useState, useEffect, ReactNode } from 'react';
+import ThemeContext from 'theme/ThemeContext';
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 const ThemeContextWrapper: FC<Props> = ({ children }) => {
-  const persistedTheme: string | null = localStorage.getItem('theme')
-  const [theme, setTheme] = useState(persistedTheme || 'light')
-
-  const changeCurrentTheme = (newTheme: 'light' | 'dark') => {
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-  }
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    if (theme === 'light') document.body.classList.remove('dark')
-    else document.body.classList.add('dark')
-  }, [theme])
+    const persistedTheme = localStorage.getItem('theme');
+    if (persistedTheme) {
+      setTheme(persistedTheme);
+    }
+  }, []);
 
-  return <ThemeContext.Provider value={{ currentTheme: theme, changeCurrentTheme }}>{children}</ThemeContext.Provider>
-}
+  const changeCurrentTheme = (newTheme: 'light' | 'dark') => {
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
-export default ThemeContextWrapper
+  useEffect(() => {
+    if (theme === 'light') document.body.classList.remove('dark');
+    else document.body.classList.add('dark');
+  }, [theme]);
+
+  return (
+    <ThemeContext.Provider value={{ currentTheme: theme, changeCurrentTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export default ThemeContextWrapper;
