@@ -3,13 +3,19 @@ export type TThemeContext = {
     changeCurrentTheme?: (newTheme: 'light' | 'dark') => void;
   }
 
-export type TGithubProj = {
-  id: number,
-  name: string
-  description: string
-  languages_url: string
-}
-
-export type TLanguages = {
-  [key: string]: number;
-};
+  export type TProj = {
+    id: number;
+    name: string;
+    description: string;
+    languages_url: string; // URL untuk mendapatkan bahasa
+  };
+  
+  export type TLanguages = {
+    [key: string]: number; 
+  };
+  
+  // Menyimpan data gabungan
+  export type TGithubProj = {
+    repo: TProj;
+    languages: TLanguages;
+  };

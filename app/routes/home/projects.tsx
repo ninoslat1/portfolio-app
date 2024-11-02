@@ -1,15 +1,14 @@
-import { TGithubProj, TLanguages } from 'lib/types';
+import { TProj, TLanguages, TGithubProj } from 'lib/types';
 import React, { useEffect, useState } from 'react'
 import { portoRepo } from '~/templates/ProjectRepoList';
 
 const Projects = () => {
-  const [repos, setRepos] = useState<TGithubProj[]>([]);
-  const [languages, setLanguages] = useState<{ [key: string]: TLanguages }>({});
+  const [project, setProjects] = useState<TGithubProj[]>([])
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const allRepos: TGithubProj[] = []
+        const allRepos: TProj[] = []
         let page: number = 1
         let moreRepos: boolean = true
 
@@ -30,28 +29,22 @@ const Projects = () => {
             page++;
           }
         }
-
-      const filterRepos = allRepos.filter((repo: TGithubProj) => portoRepo.includes(repo.name))
-      setRepos(filterRepos)
       
+      const filterRepos = allRepos.filter(repo => portoRepo.includes(repo.name));
+        
       const langPromises = filterRepos.map(async (repo) => {
         const langResponse = await fetch(repo.languages_url, {
           headers: {
             'Authorization': `token ${process.env.GITHUB_TOKEN}`
           }
         });
-        const languages = await langResponse.json();
-        return { name: repo.name, languages };
+        const languages: TLanguages = await langResponse.json();
+        return { repo, languages }; 
       });
 
       const languagesData = await Promise.all(langPromises);
-      const languagesMap = languagesData.reduce<{ [key: string]: TLanguages }>((acc, { name, languages }) => {
-        acc[name] = languages;
-        return acc;
-      }, {});
-
-      setLanguages(languagesMap);
-      console.log(languagesMap)
+      setProjects(languagesData)
+      console.log(languagesData)
     } catch (error) {
       console.error(error)
     }
@@ -65,6 +58,24 @@ const Projects = () => {
       <div>
         <p className='panel-title'>Projects</p>
       </div>
+      <div>
+      <h1>Filtered Repositories with Languages</h1>
+      <ul>
+        {project.map(({ repo, languages }) => (
+          <li key={repo.id}>
+            <a href={`https://github.com/${repo.name}`} target="_blank" rel="noopener noreferrer">
+              {repo.name}
+            </a>
+            <div>
+              <strong>Description:</strong> {repo.description || 'No description available.'}
+            </div>
+            <div>
+              <strong>Languages:</strong> {Object.keys(languages).join(', ')}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
     </section>
   )
 }
