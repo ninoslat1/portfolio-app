@@ -34,16 +34,16 @@ export default function Index() {
             <div className="w-full">
                 <TabGroup>
                     <TabList className={'flex gap-4 mx-auto justify-center'}>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Home</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Projects</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">About</Tab>
-                        <Tab className="rounded-full py-1 px-3 text-sm/6 font-semibold dark:text-white text-black focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white">Profile</Tab>
+                        <Tab className="tabs-btn">Home</Tab>
+                        <Tab className="tabs-btn">Projects</Tab>
+                        <Tab className="tabs-btn">About</Tab>
+                        <Tab className="tabs-btn">Profile</Tab>
                     </TabList>
                     <TabPanels className="mt-3">
-                        <TabPanel className="rounded-xl bg-white/5 p-3"><Home/></TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3"><Projects/></TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3"><About/></TabPanel>
-                        <TabPanel className="rounded-xl bg-white/5 p-3"><Profile/></TabPanel>
+                        <TabPanel className="tabs-panel"><Home/></TabPanel>
+                        <TabPanel className="tabs-panel"><Projects/></TabPanel>
+                        <TabPanel className="tabs-panel"><About/></TabPanel>
+                        <TabPanel className="tabs-panel"><Profile/></TabPanel>
                     </TabPanels>
                 </TabGroup>
             </div>
