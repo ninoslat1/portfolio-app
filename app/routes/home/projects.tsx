@@ -1,6 +1,7 @@
 import { TProj, TLanguages, TGithubProj } from 'lib/types';
 import React, { useEffect, useState } from 'react'
-import { portoRepo } from '~/templates/ProjectRepoList';
+import { TemplatePills } from '~/templates/Pills';
+import { portoRepo, sanitizePortoRepo } from '~/templates/ProjectRepoList';
 
 const Projects = () => {
   const [project, setProjects] = useState<TGithubProj[]>([])
@@ -30,7 +31,7 @@ const Projects = () => {
           }
         }
       
-      const filterRepos = allRepos.filter(repo => portoRepo.includes(repo.name));
+      const filterRepos = allRepos.filter(repo => Object.keys(portoRepo).includes(repo.name));
         
       const langPromises = filterRepos.map(async (repo) => {
         const langResponse = await fetch(repo.languages_url, {
@@ -44,7 +45,6 @@ const Projects = () => {
 
       const languagesData = await Promise.all(langPromises);
       setProjects(languagesData)
-      console.log(languagesData)
     } catch (error) {
       console.error(error)
     }
@@ -54,23 +54,25 @@ const Projects = () => {
   }, []);
 
   return (
-    <section>
+    <section className='p-5'>
       <div>
         <p className='panel-title'>Projects</p>
       </div>
       <div>
-      <h1>Filtered Repositories with Languages</h1>
-      <ul>
+      <ul className='grid grid-cols-3 gap-5 py-10'>
         {project.map(({ repo, languages }) => (
-          <li key={repo.id}>
-            <a href={`https://github.com/${repo.name}`} target="_blank" rel="noopener noreferrer">
-              {repo.name}
-            </a>
-            <div>
-              <strong>Description:</strong> {repo.description || 'No description available.'}
+          <li key={repo.id} className='dark:bg-white bg-slate-900 dark:text-slate-900 text-white p-5 rounded-lg'>
+            <p className='text-xl uppercase font-extrabold font-merri'>
+              {sanitizePortoRepo(repo.name)}
+            </p>
+            <div className='py-2 font-qs'>
+              <strong>
+                {repo.description || 'No description available.'}
+              </strong> 
             </div>
-            <div>
-              <strong>Languages:</strong> {Object.keys(languages).join(', ')}
+            <div className='py-2 font-qs'>
+              <strong>Languages:</strong> 
+              <TemplatePills languages={Object.keys(languages)} />
             </div>
           </li>
         ))}

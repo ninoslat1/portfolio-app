@@ -13,8 +13,7 @@ const IMAGE_SIZE: number = 75
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "My Portfolio" },
   ];
 };
 
@@ -40,10 +39,18 @@ export default function Index() {
                         <Tab className="tabs-btn">Profile</Tab>
                     </TabList>
                     <TabPanels className="mt-3">
-                        <TabPanel className="tabs-panel"><Home/></TabPanel>
-                        <TabPanel className="tabs-panel"><Projects/></TabPanel>
-                        <TabPanel className="tabs-panel"><About/></TabPanel>
-                        <TabPanel className="tabs-panel"><Profile/></TabPanel>
+                        <TabPanel className="tabs-panel">
+                          <Home/>
+                        </TabPanel>
+                        <TabPanel className="tabs-panel">
+                          <Projects/>
+                        </TabPanel>
+                        <TabPanel className="tabs-panel">
+                          <About/>
+                        </TabPanel>
+                        <TabPanel className="tabs-panel">
+                          <Profile/>
+                        </TabPanel>
                     </TabPanels>
                 </TabGroup>
             </div>

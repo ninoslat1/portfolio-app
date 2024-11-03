@@ -15,6 +15,8 @@ export default {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
+        qs: ["Quicksand", "serif"],
+        merri: ['Merriweather', "serif"]
       },
     },
   },
