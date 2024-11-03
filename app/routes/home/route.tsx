@@ -4,10 +4,8 @@ import Profile from "./profile";
 import About from "./about";
 import Projects from "./projects";
 import Home from "./home";
-import { useState, useEffect, useContext } from "react";
 import ThemeContextWrapper from "~/templates/ThemeContextWrapper";
 import ThemeToggle from "~/components/ThemeToggle";
-import ThemeContext from "theme/ThemeContext";
 
 const IMAGE_SIZE: number = 75
 
