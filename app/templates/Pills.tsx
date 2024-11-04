@@ -7,7 +7,7 @@ export const TemplatePills = ({ languages }: { languages: string[] }) => {
         {languages.map((lang, index) => {
           const color = langColor[lang] || 'bg-gray-400';
            return (
-            <button key={index} disabled className={`${color} font-qs px-4 py-0.5 rounded-full font-bold`}>
+            <button key={index} disabled className={`${color} lang-pills`}>
               <p>{lang}</p>
             </button>
            )

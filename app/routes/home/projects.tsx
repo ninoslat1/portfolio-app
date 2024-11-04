@@ -65,7 +65,7 @@ const Projects = () => {
           <div>
           <ul className='grid grid-cols-3 gap-5 py-10'>
             {project.map(({ repo, languages }) => (
-              <li key={repo.id} className='dark:bg-white bg-slate-900 dark:text-slate-900 text-white p-5 rounded-lg'>
+              <li key={repo.id} className='project-cards'>
                 <p className='text-xl uppercase font-extrabold font-merri'>
                   {sanitizePortoRepo(repo.name)}
                 </p>

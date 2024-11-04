@@ -19,7 +19,7 @@ export default function Index() {
 
   return (
     <ThemeContextWrapper>
-      <div className="flex flex-col items-center gap-4 dark:bg-slate-900">
+      <div className="flex flex-col items-center gap-4 dark:bg-slate-900 bg-slate-100/50">
         <div className="absolute right-5 top-5">
             <div className="flex items-center gap-2">
               <ThemeToggle/>
