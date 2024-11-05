@@ -36,7 +36,7 @@ export default function Index() {
                         <Tab className="tabs-btn">About</Tab>
                         <Tab className="tabs-btn">Profile</Tab>
                     </TabList>
-                    <TabPanels className="mt-3">
+                    <TabPanels className="py-5">
                         <TabPanel className="tabs-panel">
                           <Home/>
                         </TabPanel>
