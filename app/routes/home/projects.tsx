@@ -1,60 +1,12 @@
-'use client'
-
+import { LoaderFunction, json } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { projectList } from 'lib/projectList';
 import { TProj, TLanguages, TGithubProj } from 'lib/types';
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { TemplatePills } from '~/templates/Pills';
 import { portoRepo, sanitizePortoRepo } from '~/templates/ProjectRepoList';
 
-const Projects = () => {
-  const [project, setProjects] = useState<TGithubProj[]>([])
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const allRepos: TProj[] = []
-        let page: number = 1
-        let moreRepos: boolean = true
-
-        while (moreRepos) {
-          const response = await fetch(`https://api.github.com/user/repos?page=${page}&per_page=100`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `token ${process.env.GITHUB_TOKEN}`
-            }
-          });
-    
-          const repos = await response.json();
-    
-          if (repos.length === 0) {
-           moreRepos = false;
-          } else {
-            allRepos.push(...repos);
-            page++;
-          }
-        }
-      
-      const filterRepos = allRepos.filter(repo => Object.keys(portoRepo).includes(repo.name));
-        
-      const langPromises = filterRepos.map(async (repo) => {
-        const langResponse = await fetch(repo.languages_url, {
-          headers: {
-            'Authorization': `token ${process.env.GITHUB_TOKEN}`
-          }
-        });
-        const languages: TLanguages = await langResponse.json();
-        return { repo, languages }; 
-      });
-
-      const languagesData = await Promise.all(langPromises);
-      setProjects(languagesData)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  
-    fetchProjects();
-  }, []);
-
+const Projects:FC<{ project: TGithubProj[] }> = ({project}) => {
   return (
     <>
       {project ? (

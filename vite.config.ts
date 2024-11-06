@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
       remix({
         routes(defineRoutes) {
           return defineRoutes((route) => {
-            route("/", "routes/home/route.tsx", { index: true })
+            route("/", "routes/home/index.tsx", { index: true })
             route("/profile", "routes/home/profile.tsx")
             route("/about", "routes/home/about.tsx")
             route("/projects", "routes/home/projects.tsx")
